@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        maven { url 'https://jitpack.io/' }
+    }
+    dependencies {
+        classpath 'com.github.Fox2Code.FoxLoader:dev:1.2.17'
+        //classpath 'com.github.johnrengelman:shadow:8.1.1'
+        classpath 'io.freefair.gradle:lombok-plugin:8.3'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'io.freefair.lombok'
+
+version '0.0.1'
+
+// apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'foxloader.dev'
+
+// configurations {
+//     clientImplementation {
+//         canBeResolved = true
+//     }
+// }
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+// dependencies {
+//  clientImplementation 'io.github.llamalad7:mixinextras-common:0.2.0-rc.5'
+//
+// 	annotationProcessor 'io.github.llamalad7:mixinextras-common:0.2.0-rc.5'
+// }
+//
+// shadowJar {
+//     archiveClassifier.set("shadow")
+//     from sourceSets.client.output
+//     configurations = [project.configurations.clientImplementation]
+//     mergeServiceFiles()
+//     dependencies {
+//         include dependency('io.github.llamalad7:mixinextras-common:0.2.0-rc.5')
+//     }
+//     relocate 'com.llamalad7.mixinextras', 'com.lightmanlp.invtweaks.libs.mixinextras'
+// }
+//
+// build.dependsOn shadowJar
+
+foxloader {
+    // forceReload = true
+    modId = "invtweaks"
+    modName = "Inventory Tweaks"
+    modVersion = project.version
+    modDesc = "Straightforward port of InvTweaks"
+    clientMod = "com.lightmanlp.invtweaks.InvTweaksMod"
+    // serverMod = "com.fox2code.examplemod.ExampleModServer"
+    // Development tools don't like that both client and server define
+    // the same classes, so uncomment to disable the side inclusion.
+    includeClient = true
+    includeServer = false
+}
+
+apply plugin: 'maven-publish'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.github.lightmanlp'
+            artifactId = 'invtweaks'
+            version = project.version
+
+            from components.java
+        }
+    }
+}

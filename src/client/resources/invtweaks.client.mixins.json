@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.lightmanlp.invtweaks.mixins",
+  "plugin": "com.lightmanlp.invtweaks.InvTweaksMixinPlugin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinEntityPlayerSP",
+    "MixinEntityRenderer",
+    "MixinGameSettings",
+    "MixinGuiContainer",
+    "MixinGuiScreen",
+    "MixinMinecraft"
+  ]
+}
