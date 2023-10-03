@@ -312,7 +312,7 @@ public class InvTweaksConfig {
     this.properties.put("enableSortingOnPickup", "true");
     this.properties.put("enableAutoRefillSound", "true");
     this.properties.put("enableSortingSound", "true");
-    this.properties.put("enableShortcuts", "true");
+    this.properties.put("enableShortcuts", "false");
     this.properties.put("shortcutKeyAllItems", "LSHIFT, RSHIFT");
     this.properties.put("shortcutKeyOneItem", "LCONTROL, RCONTROL");
     this.properties.put("shortcutKeyOneStack", VALUE_DEFAULT);
