@@ -27,9 +27,10 @@ public class InvTweaksMod extends Mod implements ClientMod {
         prevKeysState.put(Const.SORT_KEY_BINDING, false);
     }
 
-    public static void registerCustomKeys(GameSettings settings, KeyBinding[] keys) {
-        settings.keyBindings = Arrays.copyOf(keys, keys.length + 1);
-        settings.keyBindings[keys.length + 1] = Const.SORT_KEY_BINDING;
+    public static void registerCustomKeys(GameSettings settings) {
+        KeyBinding[] oldBindings = settings.keyBindings;
+        settings.keyBindings = Arrays.copyOf(oldBindings, oldBindings.length + 1);
+        settings.keyBindings[oldBindings.length] = Const.SORT_KEY_BINDING;
     }
 
     public void onStart(Minecraft mc) {

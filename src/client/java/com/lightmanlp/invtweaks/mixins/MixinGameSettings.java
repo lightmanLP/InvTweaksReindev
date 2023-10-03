@@ -1,40 +1,31 @@
 package com.lightmanlp.invtweaks.mixins;
 
-import java.io.File;
-
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.lightmanlp.invtweaks.InvTweaksMod;
 
 import net.minecraft.src.client.GameSettings;
-import net.minecraft.src.client.KeyBinding;
 
 @Mixin(GameSettings.class)
 public abstract class MixinGameSettings {
-    @Redirect(
-        method = "<init>(Lnet/minecraft/client/Minecraft;Ljava/io/File;)V",
-        at = @At(
-            value = "FIELD",
-            target = "Lnet/minecraft/src/client/GameSettings;keyBindings:[Lnet/minecraft/src/client/KeyBinding",
-            opcode = Opcodes.PUTFIELD
-        )
+    @Inject(
+        method = "<init>()V",
+        at = @At(value = "RETURN")
     )
-    public void initRedirect(GameSettings self, KeyBinding[] keys) {
-        InvTweaksMod.registerCustomKeys(self, keys);
+    public void initMixin(CallbackInfo ci) {
+        GameSettings self = (GameSettings)(Object) this;
+        InvTweaksMod.registerCustomKeys(self);
     }
 
-    @Redirect(
-        method = "<init>()V",
-        at = @At(
-            value = "FIELD",
-            target = "Lnet/minecraft/src/client/GameSettings;keyBindings:[Lnet/minecraft/src/client/KeyBinding",
-            opcode = Opcodes.PUTFIELD
-        )
+    @Inject(
+        method = "loadOptions()V",
+        at = @At(value = "HEAD")
     )
-    public void initEmptyRedirect(GameSettings self, KeyBinding[] keys) {
-        InvTweaksMod.registerCustomKeys(self, keys);
+    public void loadOptionsMixin(CallbackInfo ci) {
+        GameSettings self = (GameSettings)(Object) this;
+        InvTweaksMod.registerCustomKeys(self);
     }
 }
